@@ -17,10 +17,21 @@ namespace CampoMinato
         public frmMain()
         {
             InitializeComponent();
+            InitCampo();
+        }
 
-            for (int y = 0; y < CampoMinato.Grandezza; y++)
+        public void InitCampo()
+        {
+            pnlCampo.Controls.Clear();
+            pnlCampo.Perso = false;
+            btnPlay.Enabled = false;
+            btnPlay.Text = "😻";
+            pnlCampo.Bombe = 0;
+            lblTime.Text = "000";
+
+            for (int y = 0; y < pnlCampo.Grandezza; y++)
             {
-                for (int x = 0; x < CampoMinato.Grandezza; x++)
+                for (int x = 0; x < pnlCampo.Grandezza; x++)
                 {
                     Casella casella = new Casella();
                     casella.UseVisualStyleBackColor = true;
@@ -38,7 +49,7 @@ namespace CampoMinato
                     casella.Bomba = rng.Next(0, 7) == 0;
                     if (casella.Bomba)
                     {
-                        CampoMinato.Bombe++;
+                        pnlCampo.Bombe++;
                     }
 
                     casella.MouseDown += (sender, e) =>
@@ -47,8 +58,14 @@ namespace CampoMinato
                         MouseEventArgs args = (MouseEventArgs)e;
                         if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
                         {
-                            CampoMinato.DisattivaCasella(c, pnlCampo, tmrTick);
-                            CampoMinato.DisattivaAdiacenti(c, pnlCampo);
+                            pnlCampo.DisattivaCasella(c);
+                            if (pnlCampo.Perso)
+                            {
+                                tmrTick.Enabled = false;
+                                btnPlay.Text = "🥶";
+                                btnPlay.Enabled = true;
+                            }
+                            pnlCampo.DisattivaAdiacenti(c);
                         }
                         else if (args.Button == MouseButtons.Right)
                         {
@@ -58,11 +75,8 @@ namespace CampoMinato
                     pnlCampo.Controls.Add(casella);
                 }
             }
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            lblBombe.Text = CampoMinato.AggiungiZeri(CampoMinato.Bombe, 3);
+            lblBombe.Text = CampoMinato.AggiungiZeri(pnlCampo.Bombe, 3);
+            tmrTick.Enabled = true;
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)
@@ -70,9 +84,14 @@ namespace CampoMinato
             lblTime.Text = CampoMinato.AggiungiZeri(int.Parse(lblTime.Text) + 1, 3);
         }
 
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            InitCampo();
+        }
+
         private void btnTest_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(CampoMinato.TrovaInMatrice(7, 2, pnlCampo).Tag.ToString());
+            MessageBox.Show(pnlCampo.TrovaInMatrice(7, 2).Tag.ToString());
         }
     }
 }

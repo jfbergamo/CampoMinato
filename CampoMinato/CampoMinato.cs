@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,25 +10,26 @@ using System.Windows.Forms;
 
 namespace CampoMinato
 {
-    internal class CampoMinato
+    internal class CampoMinato : Panel
     {
         #region ATTRIBUTI
 
-        private static int grandezza = 8;
-        private static int bombe = 0;
+        private int grandezza = 8;
+        private int bombe = 0;
+        private bool perso = false;
 
         #endregion
-
+        
         #region METODI
 
-        public static int TrovaIndiceInMatrice(int x, int y)
+        public int TrovaIndiceInMatrice(int x, int y)
         {
             return x + Grandezza * y;
         }
 
-        public static Casella TrovaInMatrice(int x, int y, Panel pnl)
+        public Casella TrovaInMatrice(int x, int y)
         {
-            return (Casella)pnl.Controls[TrovaIndiceInMatrice(x, y)];
+            return (Casella)this.Controls[TrovaIndiceInMatrice(x, y)];
         }
 
         public static string AggiungiZeri(int n, int len)
@@ -40,7 +42,7 @@ namespace CampoMinato
             return m;
         }
 
-        public static int Adiacenti(string tag, Panel pnl)
+        public int Adiacenti(string tag)
         {
             int x, y, adiacenti = 0;
             {
@@ -53,34 +55,34 @@ namespace CampoMinato
                 for (int j = -1; j <= 1; ++j)
                     try
                     {
-                        if (TrovaInMatrice(x + j, y + i, pnl).Bomba)
+                        if (TrovaInMatrice(x + j, y + i).Bomba)
                             adiacenti++;
                     }
                     catch (ArgumentOutOfRangeException) { }
             return adiacenti;
         }
 
-        public static void DisattivaCasella(Casella c, Panel caselle, Timer tmr)
+        public void DisattivaCasella(Casella c)
         {
             c.Enabled = false;
             c.BackColor = Color.LightGray;
             if (c.Bomba)
             {
                 c.Stato = StatoCasella.Bomba;
-                tmr.Enabled = false;
-                foreach (Casella casella in caselle.Controls)
+                Perso = true;
+                foreach (Casella casella in this.Controls)
                 {
                     casella.Enabled = false;
                 }
             }
             else
             {
-                int adiacenti = Adiacenti(c.Tag.ToString(), caselle);
+                int adiacenti = Adiacenti(c.Tag.ToString());
                 c.Text = adiacenti > 0 ? adiacenti.ToString() : "";
             }
         }
 
-        public static void DisattivaAdiacenti(Casella c, Panel pnl)
+        public void DisattivaAdiacenti(Casella c)
         {
             int x, y;
             {
@@ -95,7 +97,7 @@ namespace CampoMinato
                 {
                     try
                     {
-                        adiacente = TrovaInMatrice(x + j, y + i, pnl);
+                        adiacente = TrovaInMatrice(x + j, y + i);
                     }
                     catch (ArgumentOutOfRangeException)
                     {
@@ -103,7 +105,7 @@ namespace CampoMinato
                     }
                     if (adiacente.Enabled && !adiacente.Bomba)
                     {
-                        DisattivaCasella(adiacente, pnl, null);
+                        DisattivaCasella(adiacente);
                     }
                 }
             }
@@ -113,8 +115,9 @@ namespace CampoMinato
 
         #region PROPRIETA'
 
-        public static int Grandezza { get => grandezza; }
-        public static int Bombe { get => bombe; set => bombe = value; }
+        public int Grandezza { get => grandezza; }
+        public int Bombe { get => bombe; set => bombe = value; }
+        public bool Perso { get => perso; set => perso = value; }
 
         #endregion
     }
