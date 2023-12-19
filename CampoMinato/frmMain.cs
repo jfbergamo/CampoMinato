@@ -18,6 +18,11 @@ namespace CampoMinato
         {
             InitializeComponent();
             InitCampo();
+            /*
+             * TODO:
+             * - Rifare la casella come vuole Piazza
+             * - Sfrutta la ricorsione per le celle che esplodono
+             */
         }
 
         public void InitCampo()

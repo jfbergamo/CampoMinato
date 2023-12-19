@@ -67,7 +67,7 @@
             this.lblTime.BackColor = System.Drawing.SystemColors.ControlText;
             this.lblTime.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.ForeColor = System.Drawing.Color.Red;
-            this.lblTime.Location = new System.Drawing.Point(201, 35);
+            this.lblTime.Location = new System.Drawing.Point(201, 34);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(63, 33);
             this.lblTime.TabIndex = 3;
