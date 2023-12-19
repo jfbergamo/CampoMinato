@@ -33,6 +33,8 @@ namespace CampoMinato
                     casella.FlatStyle = FlatStyle.Popup;
                     casella.BackColor = Color.LightGreen;
 
+                    casella.Font = Casella.NumberFont;
+
                     casella.Bomba = rng.Next(0, 7) == 0;
                     if (casella.Bomba)
                     {
@@ -46,6 +48,7 @@ namespace CampoMinato
                         if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
                         {
                             CampoMinato.DisattivaCasella(c, pnlCampo);
+                            CampoMinato.DisattivaAdiacenti(c, pnlCampo);
                         }
                         else if (args.Button == MouseButtons.Right)
                         {

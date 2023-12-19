@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -61,18 +62,46 @@ namespace CampoMinato
 
         public static void DisattivaCasella(Casella c, Panel caselle)
         {
+            c.Enabled = false;
+            c.BackColor = Color.LightGray;
             if (c.Bomba)
             {
                 c.Stato = StatoCasella.Bomba;
-                c.Enabled = false;
             }
             else
             {
-                c.Font = Casella.NumberFont;
-                c.Text = CampoMinato.Adiacenti(c.Tag.ToString(), caselle).ToString();
+                int adiacenti = Adiacenti(c.Tag.ToString(), caselle);
+                c.Text = adiacenti > 0 ? adiacenti.ToString() : "";
             }
-            c.BackColor = Color.LightGray;
-            c.Enabled = false;
+        }
+
+        public static void DisattivaAdiacenti(Casella c, Panel pnl)
+        {
+            int x, y;
+            {
+                string[] temp = c.Tag.ToString().Split('|');
+                x = int.Parse(temp[0]);
+                y = int.Parse(temp[1]);
+            }
+            Casella adiacente;
+            for (int i = -1; i <= 1; ++i)
+            {
+                for (int j = -1; j <= 1; ++j)
+                {
+                    try
+                    {
+                        adiacente = TrovaInMatrice(x + j, y + i, pnl);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        continue;
+                    }
+                    if (adiacente.Enabled && !adiacente.Bomba)
+                    {
+                        DisattivaCasella(adiacente, pnl);
+                    }
+                }
+            }
         }
 
         #endregion
