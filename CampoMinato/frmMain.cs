@@ -53,8 +53,7 @@ namespace CampoMinato
                             else
                             {
                                 c.Font = Casella.NumberFont;
-                                int adiacenti = pnlCampo.Adiacenti(c.Tag.ToString());
-                                c.Text = adiacenti > 0 ? adiacenti.ToString() : "";
+                                c.Text = CampoMinato.Adiacenti(c.Tag.ToString(), pnlCampo).ToString();
                             }
                             c.BackColor = Color.LightGray;
                             c.Enabled = false;
@@ -88,7 +87,7 @@ namespace CampoMinato
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(pnlCampo.TrovaInMatrice(7, 2).Tag.ToString());
+            MessageBox.Show(CampoMinato.TrovaInMatrice(7, 2, pnlCampo).Tag.ToString());
         }
     }
 }

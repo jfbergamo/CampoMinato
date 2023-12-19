@@ -46,9 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CampoMinato.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="CampoMinato.cs" />
     <Compile Include="Casella.cs">
       <SubType>Component</SubType>
     </Compile>
