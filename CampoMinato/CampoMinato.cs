@@ -60,13 +60,18 @@ namespace CampoMinato
             return adiacenti;
         }
 
-        public static void DisattivaCasella(Casella c, Panel caselle)
+        public static void DisattivaCasella(Casella c, Panel caselle, Timer tmr)
         {
             c.Enabled = false;
             c.BackColor = Color.LightGray;
             if (c.Bomba)
             {
                 c.Stato = StatoCasella.Bomba;
+                tmr.Enabled = false;
+                foreach (Casella casella in caselle.Controls)
+                {
+                    casella.Enabled = false;
+                }
             }
             else
             {
@@ -98,7 +103,7 @@ namespace CampoMinato
                     }
                     if (adiacente.Enabled && !adiacente.Bomba)
                     {
-                        DisattivaCasella(adiacente, pnl);
+                        DisattivaCasella(adiacente, pnl, null);
                     }
                 }
             }

@@ -47,7 +47,7 @@ namespace CampoMinato
                         MouseEventArgs args = (MouseEventArgs)e;
                         if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
                         {
-                            CampoMinato.DisattivaCasella(c, pnlCampo);
+                            CampoMinato.DisattivaCasella(c, pnlCampo, tmrTick);
                             CampoMinato.DisattivaAdiacenti(c, pnlCampo);
                         }
                         else if (args.Button == MouseButtons.Right)
