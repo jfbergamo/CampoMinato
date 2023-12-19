@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pnlCampo = new System.Windows.Forms.Panel();
+            this.pnlCampo = new CampoMinato();
             this.btnTest = new System.Windows.Forms.Button();
             this.lblBombe = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
@@ -107,7 +107,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlCampo;
+        private CampoMinato pnlCampo;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Label lblBombe;
         private System.Windows.Forms.Label lblTime;

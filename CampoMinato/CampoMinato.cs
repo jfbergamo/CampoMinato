@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CampoMinato
 {
-    internal class CampoMinato
+    internal class CampoMinato : System.Windows.Forms.Panel
     {
         #region ATTRIBUTI
 
@@ -16,16 +16,18 @@ namespace CampoMinato
 
         #endregion
 
+        public CampoMinato() : base() { }
+
         #region METODI
 
-        public static int TrovaIndiceInMatrice(int x, int y)
+        public int TrovaIndiceInMatrice(int x, int y)
         {
             return x + Grandezza * y;
         }
 
-        public static Casella TrovaInMatrice(int x, int y, Panel pnl)
+        public Casella TrovaInMatrice(int x, int y)
         {
-            return (Casella)pnl.Controls[TrovaIndiceInMatrice(x, y)];
+            return (Casella)this.Controls[TrovaIndiceInMatrice(x, y)];
         }
 
         public static string AggiungiZeri(int n, int len)
@@ -38,7 +40,7 @@ namespace CampoMinato
             return m;
         }
 
-        public static int Adiacenti(string tag, Panel pnl)
+        public int Adiacenti(string tag)
         {
             int x, y, adiacenti = 0;
             {
@@ -51,7 +53,7 @@ namespace CampoMinato
                 for (int j = -1; j <= 1; ++j)
                     try
                     {
-                        if (TrovaInMatrice(x + j, y + i, pnl).Bomba)
+                        if (TrovaInMatrice(x + j, y + i).Bomba)
                             adiacenti++;
                     }
                     catch (ArgumentOutOfRangeException) { }
