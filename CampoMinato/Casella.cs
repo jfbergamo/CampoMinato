@@ -12,6 +12,7 @@ namespace CampoMinato
     {
         Vuota,
         Bandiera,
+        PuntoDomanda,
         Bomba,
     }
     
@@ -28,32 +29,38 @@ namespace CampoMinato
 
         #region METODI
 
-        public void AggiornaStato(StatoCasella stato)
+        public void ScorriStato()
         {
-            statoCasella = stato;
-
-            switch (statoCasella)
-            {
-                case StatoCasella.Vuota:
-                    this.Text = "";
-                    break;
-                case StatoCasella.Bandiera:
-                    this.Text = "🚩";
-                    break;
-                case StatoCasella.Bomba:
-                    this.Text = "💣";
-                    break;
-                default:
-                    break;
-            }
+            Stato = (StatoCasella)(((int)Stato + 1) % (int)StatoCasella.Bomba);
         }
-
+       
         #endregion
 
         #region PROPRIETA'
 
         public bool Bomba { get => bomba; set => bomba = value; }
-        public StatoCasella Stato {  get => statoCasella; set => AggiornaStato(value); }
+        public StatoCasella Stato { get => statoCasella;
+            set
+            {
+                statoCasella = value;
+                switch (statoCasella)
+                {
+                    case StatoCasella.Vuota:
+                        this.Text = "";
+                        break;
+                    case StatoCasella.Bandiera:
+                        this.Text = "🚩";
+                        break;
+                    case StatoCasella.PuntoDomanda:
+                        this.Text = "?";
+                        break;
+                    case StatoCasella.Bomba:
+                        this.Text = "💣";
+                        break;
+                    default:
+                        break;
+                }
+            } }
         public static Font NumberFont { get => numberFont; }
 
         #endregion

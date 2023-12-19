@@ -45,29 +45,11 @@ namespace CampoMinato
                         MouseEventArgs args = (MouseEventArgs)e;
                         if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
                         {
-                            if (c.Bomba)
-                            {
-                                c.Stato = StatoCasella.Bomba;
-                                c.Enabled = false;
-                            }
-                            else
-                            {
-                                c.Font = Casella.NumberFont;
-                                c.Text = CampoMinato.Adiacenti(c.Tag.ToString(), pnlCampo).ToString();
-                            }
-                            c.BackColor = Color.LightGray;
-                            c.Enabled = false;
+                            CampoMinato.DisattivaCasella(c, pnlCampo);
                         }
                         else if (args.Button == MouseButtons.Right)
                         {
-                            if (c.Stato == StatoCasella.Bandiera)
-                            {
-                                c.Stato = StatoCasella.Vuota;
-                            }
-                            else
-                            {
-                                c.Stato = StatoCasella.Bandiera;
-                            }
+                            c.ScorriStato();
                         }
                     };
                     pnlCampo.Controls.Add(casella);

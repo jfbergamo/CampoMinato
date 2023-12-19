@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,22 @@ namespace CampoMinato
                     }
                     catch (ArgumentOutOfRangeException) { }
             return adiacenti;
+        }
+
+        public static void DisattivaCasella(Casella c, Panel caselle)
+        {
+            if (c.Bomba)
+            {
+                c.Stato = StatoCasella.Bomba;
+                c.Enabled = false;
+            }
+            else
+            {
+                c.Font = Casella.NumberFont;
+                c.Text = CampoMinato.Adiacenti(c.Tag.ToString(), caselle).ToString();
+            }
+            c.BackColor = Color.LightGray;
+            c.Enabled = false;
         }
 
         #endregion
