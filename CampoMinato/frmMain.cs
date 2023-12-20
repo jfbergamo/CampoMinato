@@ -17,6 +17,7 @@ namespace CampoMinato
         public frmMain()
         {
             InitializeComponent();
+            CampoMinato.Campo = pnlCampo;
             InitCampo();
             /*
              * TODO:
@@ -50,19 +51,20 @@ namespace CampoMinato
 
                     casella.MouseDown += (sender, e) =>
                     {
-                        pnlCampo.ControllaVittoria((Casella)((Button)sender).Tag);
-                        if (CampoMinato.Perso)
-                        {
-                            tmrTick.Enabled = false;
-                            btnPlay.Text = "🥶";
-                            btnPlay.Enabled = true;
-                        }
+                        
                     };
                     pnlCampo.Controls.Add(casella);
                 }
             }
             lblBombe.Text = CampoMinato.AggiungiZeri(pnlCampo.Bombe, 3);
             tmrTick.Enabled = true;
+        }
+
+        public void Perdi()
+        {
+            tmrTick.Enabled = false;
+            btnPlay.Text = "🥶";
+            btnPlay.Enabled = true;
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)

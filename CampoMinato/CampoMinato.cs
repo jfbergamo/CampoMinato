@@ -16,7 +16,9 @@ namespace CampoMinato
 
         private int grandezza = 8;
         private int bombe = 0;
+
         private static bool perso = false;
+        private static CampoMinato pannello;
 
         #endregion
         
@@ -72,7 +74,7 @@ namespace CampoMinato
         {
             if (Perso)
             {
-                
+                frmMain.Perdi();
                 
                 foreach (Casella casella in Controls)
                 {
@@ -122,7 +124,9 @@ namespace CampoMinato
 
         public int Grandezza { get => grandezza; }
         public int Bombe { get => bombe; set => bombe = value; }
+        
         public static bool Perso { get => perso; set => perso = value; }
+        public static CampoMinato Campo { get => pannello; set => pannello = value; }
 
         #endregion
     }

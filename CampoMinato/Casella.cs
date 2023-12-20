@@ -55,10 +55,6 @@ namespace CampoMinato
                 Stato = StatoCasella.Bomba;
                 CampoMinato.Perso = true;
             }
-            else
-            {
-                
-            }
         }
 
         #endregion
@@ -67,17 +63,16 @@ namespace CampoMinato
 
         private void Press(object sender, EventArgs e)
         {
-            Casella c = (Casella)((Button)sender).Tag;
             MouseEventArgs args = (MouseEventArgs)e;
-            if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
+            if (args.Button == MouseButtons.Left && Stato != StatoCasella.Bandiera)
             {
-                c.Disattiva();
-                
+                Disattiva();
             }
             else if (args.Button == MouseButtons.Right)
             {
-                c.ScorriStato();
+                ScorriStato();
             }
+            CampoMinato.Campo.ControllaVittoria(this);
         }
 
         #endregion
