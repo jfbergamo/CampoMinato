@@ -41,34 +41,31 @@ namespace CampoMinato
             this.btnControl.ForeColor = System.Drawing.Color.Transparent;
             this.btnControl.Location = new System.Drawing.Point(0, 0);
             this.btnControl.Name = "btnControl";
-            this.btnControl.Size = new System.Drawing.Size(389, 214);
+            this.btnControl.Size = new System.Drawing.Size(40, 40);
             this.btnControl.TabIndex = 0;
-            this.btnControl.UseVisualStyleBackColor = true;
-            this.btnControl.MouseDown += Press;
             this.btnControl.Tag = this;
+            this.btnControl.UseVisualStyleBackColor = true;
             // 
             // lblControl
             // 
             this.lblControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblControl.Font = new System.Drawing.Font("Cascadia Code SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblControl.Location = new System.Drawing.Point(0, 0);
             this.lblControl.Name = "lblControl";
-            this.lblControl.Size = new System.Drawing.Size(389, 214);
+            this.lblControl.Size = new System.Drawing.Size(40, 40);
             this.lblControl.TabIndex = 1;
-            this.lblControl.Font = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.lblControl.Text = "label1";
+            this.lblControl.Text = "0";
+            this.lblControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblControl.BackColor = System.Drawing.Color.DimGray;
             // 
             // Casella
             // 
-            this.Bomba = false;
-            this.Stato = StatoCasella.Vuota;
-
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.lblControl);
             this.Controls.Add(this.btnControl);
+            this.Controls.Add(this.lblControl);
             this.Name = "Casella";
-            this.Size = new System.Drawing.Size(389, 214);
+            this.Size = new System.Drawing.Size(40, 40);
             this.ResumeLayout(false);
 
         }

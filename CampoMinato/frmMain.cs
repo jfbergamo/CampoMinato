@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,9 +15,13 @@ namespace CampoMinato
     {
         private Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
 
+        private static frmMain _frm;
+        public static frmMain frm { get => frm; }
+
         public frmMain()
         {
             InitializeComponent();
+            _frm = this;
             CampoMinato.Campo = pnlCampo;
             InitCampo();
             /*
@@ -49,10 +54,6 @@ namespace CampoMinato
                         pnlCampo.Bombe++;
                     }
 
-                    casella.MouseDown += (sender, e) =>
-                    {
-                        
-                    };
                     pnlCampo.Controls.Add(casella);
                 }
             }

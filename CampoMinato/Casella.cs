@@ -35,6 +35,8 @@ namespace CampoMinato
         public Casella()
         {
             InitializeComponent();
+            this.Bomba = false;
+            this.Stato = StatoCasella.Vuota;
         }
 
         #endregion
@@ -48,8 +50,8 @@ namespace CampoMinato
 
         public void Disattiva()
         {
-            Enabled = false;
-            BackColor = disabledColor;
+            btnControl.Enabled = false;
+            lblControl.BackColor = disabledColor;
             if (Bomba)
             {
                 Stato = StatoCasella.Bomba;

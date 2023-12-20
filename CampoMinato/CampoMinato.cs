@@ -74,7 +74,7 @@ namespace CampoMinato
         {
             if (Perso)
             {
-                frmMain.Perdi();
+                frmMain.frm.Perdi();
                 
                 foreach (Casella casella in Controls)
                 {
