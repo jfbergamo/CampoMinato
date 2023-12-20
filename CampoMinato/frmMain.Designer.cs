@@ -85,7 +85,6 @@
             this.pnlCampo.Bombe = 0;
             this.pnlCampo.Location = new System.Drawing.Point(24, 104);
             this.pnlCampo.Name = "pnlCampo";
-            this.pnlCampo.Perso = false;
             this.pnlCampo.Size = new System.Drawing.Size(240, 240);
             this.pnlCampo.TabIndex = 0;
             // 

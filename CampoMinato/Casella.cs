@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,15 +17,25 @@ namespace CampoMinato
         PuntoDomanda,
         Bomba,
     }
-    
-    internal class Casella : Button
+
+    public partial class Casella : UserControl
     {
         #region ATTRIBUTI
+
+        private static Color enabledColor = Color.Silver;
+        private static Color disabledColor = Color.LightGray;
 
         private bool bomba;
         private StatoCasella statoCasella;
 
-        private static Font numberFont = new Font("Cascadia Code SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        #endregion
+
+        #region COSTRUTTORI
+
+        public Casella()
+        {
+            InitializeComponent();
+        }
 
         #endregion
 
@@ -33,35 +45,73 @@ namespace CampoMinato
         {
             Stato = (StatoCasella)(((int)Stato + 1) % (int)StatoCasella.Bomba);
         }
-       
+
+        public void Disattiva()
+        {
+            Enabled = false;
+            BackColor = disabledColor;
+            if (Bomba)
+            {
+                Stato = StatoCasella.Bomba;
+                CampoMinato.Perso = true;
+            }
+            else
+            {
+                
+            }
+        }
+
+        #endregion
+
+        #region EVENTI
+
+        private void Press(object sender, EventArgs e)
+        {
+            Casella c = (Casella)((Button)sender).Tag;
+            MouseEventArgs args = (MouseEventArgs)e;
+            if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
+            {
+                c.Disattiva();
+                
+            }
+            else if (args.Button == MouseButtons.Right)
+            {
+                c.ScorriStato();
+            }
+        }
+
         #endregion
 
         #region PROPRIETA'
 
+        public override string Text { get => lblControl.Text; set => lblControl.Text = value; }
+        
         public bool Bomba { get => bomba; set => bomba = value; }
-        public StatoCasella Stato { get => statoCasella;
+        public StatoCasella Stato
+        {
+            get => statoCasella;
             set
             {
                 statoCasella = value;
                 switch (statoCasella)
                 {
                     case StatoCasella.Vuota:
-                        this.Text = "";
+                        Text = "";
                         break;
                     case StatoCasella.Bandiera:
-                        this.Text = "🚩";
+                        Text = "🚩";
                         break;
                     case StatoCasella.PuntoDomanda:
-                        this.Text = "?";
+                        Text = "?";
                         break;
                     case StatoCasella.Bomba:
-                        this.Text = "💣";
+                        Text = "💣";
                         break;
                     default:
                         break;
                 }
-            } }
-        public static Font NumberFont { get => numberFont; }
+            }
+        }
 
         #endregion
     }

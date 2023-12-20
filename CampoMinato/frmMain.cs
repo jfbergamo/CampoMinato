@@ -28,7 +28,7 @@ namespace CampoMinato
         public void InitCampo()
         {
             pnlCampo.Controls.Clear();
-            pnlCampo.Perso = false;
+            CampoMinato.Perso = false;
             btnPlay.Enabled = false;
             btnPlay.Text = "😻";
             pnlCampo.Bombe = 0;
@@ -39,18 +39,9 @@ namespace CampoMinato
                 for (int x = 0; x < pnlCampo.Grandezza; x++)
                 {
                     Casella casella = new Casella();
-                    casella.UseVisualStyleBackColor = true;
-                    
                     casella.Tag = x + "|" + y;
-                    
-                    casella.Size = new Size(30, 30);
                     casella.Location = new Point(casella.Width * x, casella.Height * y);
                     
-                    casella.FlatStyle = FlatStyle.Popup;
-                    casella.BackColor = Color.LightGreen;
-
-                    casella.Font = Casella.NumberFont;
-
                     casella.Bomba = rng.Next(0, 7) == 0;
                     if (casella.Bomba)
                     {
@@ -59,22 +50,12 @@ namespace CampoMinato
 
                     casella.MouseDown += (sender, e) =>
                     {
-                        Casella c = (Casella)sender;
-                        MouseEventArgs args = (MouseEventArgs)e;
-                        if (args.Button == MouseButtons.Left && c.Stato != StatoCasella.Bandiera)
+                        pnlCampo.ControllaVittoria((Casella)((Button)sender).Tag);
+                        if (CampoMinato.Perso)
                         {
-                            pnlCampo.DisattivaCasella(c);
-                            if (pnlCampo.Perso)
-                            {
-                                tmrTick.Enabled = false;
-                                btnPlay.Text = "🥶";
-                                btnPlay.Enabled = true;
-                            }
-                            pnlCampo.DisattivaAdiacenti(c);
-                        }
-                        else if (args.Button == MouseButtons.Right)
-                        {
-                            c.ScorriStato();
+                            tmrTick.Enabled = false;
+                            btnPlay.Text = "🥶";
+                            btnPlay.Enabled = true;
                         }
                     };
                     pnlCampo.Controls.Add(casella);
@@ -96,7 +77,7 @@ namespace CampoMinato
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(pnlCampo.TrovaInMatrice(7, 2).Tag.ToString());
+            MessageBox.Show(pnlCampo.CasellaDaCoordinate(7, 2).Tag.ToString());
         }
     }
 }
