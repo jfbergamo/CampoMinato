@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Windows.Forms;
 
 namespace CampoMinato
@@ -17,13 +18,14 @@ namespace CampoMinato
         Dubbio,
     }
 
-    public partial class Casella : UserControl
+    public partial class Casella : System.Windows.Forms.UserControl
     {
 
         #region ATTRIBUTI
 
         private StatoCasella statoCasella;
         private bool bomba = false;
+        private int adiancenti = 0;
 
         #endregion
 
@@ -43,7 +45,7 @@ namespace CampoMinato
             }
             if (e.Button == MouseButtons.Left)
             {
-                DisattivaCella();
+                Disattiva();
             }
         }
 
@@ -56,7 +58,7 @@ namespace CampoMinato
             StatoCasella = (StatoCasella)(((int)statoCasella + 1) % Enum.GetNames(typeof(StatoCasella)).Length);
         }
 
-        public void DisattivaCella()
+        public void Disattiva()
         {
             Attivo = false;
             if (bomba)
@@ -67,12 +69,12 @@ namespace CampoMinato
             {
                 if (lblText.Text != "")
                 {
-                    ((frmMain)Tag).DisattivaVicini();
+                    ((Campo)((Pair)Tag).Second).DisattivaVicini(this, false);
                 }
             }
         }
 
-        public void Adiacenti(int ads)
+        private void Display()
         {
             if (Bomba)
             {
@@ -80,7 +82,7 @@ namespace CampoMinato
             }
             else
             {
-                lblText.Text = (ads > 0) ? ads.ToString() : "";
+                lblText.Text = (adiancenti > 0) ? adiancenti.ToString() : "";
             }
         }
 
@@ -108,6 +110,19 @@ namespace CampoMinato
                         break;
                 }
             }
+        }
+        public int Adiacenti
+        {
+            get => adiancenti;
+            set
+            {
+                if (!bomba)
+                {
+                    int ads = Math.Abs(value);
+                    adiancenti = (ads > 8) ? 0 : ads;
+                }
+                Display();
+            } 
         }
         public bool Bomba { get => bomba; set => bomba = value; }
 
