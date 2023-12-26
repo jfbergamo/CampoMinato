@@ -1,4 +1,7 @@
-﻿namespace CampoMinato
+﻿using System;
+using System.Windows.Forms;
+
+namespace CampoMinato
 {
     partial class Casella
     {
@@ -55,7 +58,7 @@
             this.btnCover.Size = new System.Drawing.Size(30, 30);
             this.btnCover.TabIndex = 1;
             this.btnCover.UseVisualStyleBackColor = false;
-            this.btnCover.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CoverPress);
+            this.btnCover.MouseDown += new System.Windows.Forms.MouseEventHandler(Campo.campo.CoverPress);
             // 
             // Casella
             // 

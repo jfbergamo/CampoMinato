@@ -4,24 +4,31 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace CampoMinato
 {
-    public partial class Campo : System.Windows.Forms.UserControl
+    public partial class Campo : UserControl
     {
         Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
+        
+        private static Campo _campo;
+        public static Campo campo { get => _campo; }
 
         public Campo()
         {
+            _campo = this;
             InitializeComponent();
             CreaCampo();
             CalcolaCampo();
         }
+
+        #region INIT
 
         public void CreaCampo()
         {
@@ -31,7 +38,7 @@ namespace CampoMinato
                 {
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
-                    casella.Tag = new Pair(new Point(x, y), this);
+                    casella.Tag = new Point(x, y);
                     casella.Bomba = rng.Next(0, 7) == 0;
                     Controls.Add(casella);
                 }
@@ -46,29 +53,48 @@ namespace CampoMinato
             }
         }
 
-        public void DisattivaVicini(Casella c, bool checkActive = true)
+        #endregion
+
+        #region EVENTI
+
+        public void CoverPress(object sender, MouseEventArgs e)
         {
-            if (checkActive && !c.Attivo)
+            Casella c = (Casella)((Button)sender).Tag;
+            if (e.Button == MouseButtons.Right)
             {
-                return;
+                c.CambiaStato();
             }
+            if (e.Button == MouseButtons.Left)
+            {
+                if (c.Bomba)
+                {
+                    c.Attivo = false;
+                    //frmMain.Perso = true;
+                }
+                else
+                {
+                    DisattivaVicini(c);
+                }
+            }
+        }
+
+        #endregion
+
+        public void DisattivaVicini(Casella c)
+        {
             if (!c.Bomba && c.Adiacenti == 0)
             {
-                c.Disattiva();
+                c.Attivo = false;
 
-                Point p;
-                for (int i = -1; i <= 1; ++i)
+                Point p = (Point)c.Tag;
+                try
                 {
-                    for (int j = -1; j <= 1; ++j)
-                    {
-                        p = (Point)((Pair)c.Tag).First;
-                        try
-                        {
-                            DisattivaVicini(CasellaMatrice(p.X + j, p.Y + i));
-                        }
-                        catch (ArgumentOutOfRangeException) { }
-                    }
+                    DisattivaVicini(CasellaMatrice(p.X, p.Y - 1));
+                    DisattivaVicini(CasellaMatrice(p.X, p.Y + 1));
+                    DisattivaVicini(CasellaMatrice(p.X - 1, p.Y));
+                    DisattivaVicini(CasellaMatrice(p.X + 1, p.Y));
                 }
+                catch (ArgumentOutOfRangeException) { }
             }
 
             return;
@@ -88,7 +114,7 @@ namespace CampoMinato
             {
                 for (int j = -1; j <= 1; ++j)
                 {
-                    p = (Point)((Pair)casella.Tag).First;
+                    p = (Point)casella.Tag;
                     try
                     {
                         if (CasellaMatrice(p.X + j, p.Y + i).Bomba)

@@ -12,7 +12,6 @@ namespace CampoMinato
 {
     public partial class frmMain : Form
     {
-        public static bool Perso = false;
 
         public frmMain()
         {

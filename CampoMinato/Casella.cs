@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI;
 using System.Windows.Forms;
 
 namespace CampoMinato
@@ -18,7 +17,7 @@ namespace CampoMinato
         Dubbio,
     }
 
-    public partial class Casella : System.Windows.Forms.UserControl
+    public partial class Casella : UserControl
     {
 
         #region ATTRIBUTI
@@ -33,45 +32,14 @@ namespace CampoMinato
         {
             InitializeComponent();
             statoCasella = StatoCasella.Empty;
+            btnCover.Tag = this;
         }
-
-        #region EVENTI
-
-        private void CoverPress(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                CambiaStato();
-            }
-            if (e.Button == MouseButtons.Left)
-            {
-                Disattiva();
-            }
-        }
-
-        #endregion
 
         #region METODI
 
         public void CambiaStato()
         {
             StatoCasella = (StatoCasella)(((int)statoCasella + 1) % Enum.GetNames(typeof(StatoCasella)).Length);
-        }
-
-        public void Disattiva()
-        {
-            Attivo = false;
-            if (bomba)
-            {
-                frmMain.Perso = true;
-            }
-            else
-            {
-                if (lblText.Text != "")
-                {
-                    ((Campo)((Pair)Tag).Second).DisattivaVicini(this, false);
-                }
-            }
         }
 
         private void Display()
@@ -91,6 +59,8 @@ namespace CampoMinato
         #region ATTRIBUTI
 
         public bool Attivo {  get => btnCover.Visible; set => btnCover.Visible = value; }
+        public string Testo { get => lblText.Text; set => lblText.Text = value; }
+
         public StatoCasella StatoCasella
         {
             get => statoCasella;
