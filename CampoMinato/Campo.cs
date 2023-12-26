@@ -82,10 +82,10 @@ namespace CampoMinato
 
         public void DisattivaVicini(Casella c)
         {
+            c.Attivo = false;
+
             if (!c.Bomba && c.Adiacenti == 0)
             {
-                c.Attivo = false;
-
                 Point p = (Point)c.Tag;
                 try
                 {
