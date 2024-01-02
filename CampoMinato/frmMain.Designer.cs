@@ -28,32 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.campo1 = new CampoMinato.Campo();
+            this.campo = new CampoMinato.Campo();
             this.SuspendLayout();
             // 
-            // campo1
+            // campo
             // 
-            this.campo1.BackColor = System.Drawing.Color.Transparent;
-            this.campo1.Location = new System.Drawing.Point(184, 71);
-            this.campo1.Name = "campo1";
-            this.campo1.Size = new System.Drawing.Size(240, 240);
-            this.campo1.TabIndex = 0;
+            this.campo.BackColor = System.Drawing.Color.Transparent;
+            this.campo.Location = new System.Drawing.Point(52, 154);
+            this.campo.Name = "campo";
+            this.campo.Size = new System.Drawing.Size(240, 240);
+            this.campo.TabIndex = 0;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.campo1);
+            this.ClientSize = new System.Drawing.Size(344, 441);
+            this.Controls.Add(this.campo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "frmMain";
+            this.Text = "Parto Fiorito";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Campo campo1;
+        private Campo campo;
     }
 }

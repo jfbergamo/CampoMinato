@@ -60,6 +60,7 @@ namespace CampoMinato
         public void CoverPress(object sender, MouseEventArgs e)
         {
             Casella c = (Casella)((Button)sender).Tag;
+
             if (e.Button == MouseButtons.Right)
             {
                 c.CambiaStato();
@@ -82,17 +83,21 @@ namespace CampoMinato
 
         public void DisattivaVicini(Casella c)
         {
+            if (!c.Attivo)
+            {
+                return;
+            }
+
             c.Attivo = false;
 
             if (!c.Bomba && c.Adiacenti == 0)
             {
-                Point p = (Point)c.Tag;
                 try
                 {
-                    DisattivaVicini(CasellaMatrice(p.X, p.Y - 1));
-                    DisattivaVicini(CasellaMatrice(p.X, p.Y + 1));
-                    DisattivaVicini(CasellaMatrice(p.X - 1, p.Y));
-                    DisattivaVicini(CasellaMatrice(p.X + 1, p.Y));
+                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X,     ((Point)c.Tag).Y - 1));
+                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X,     ((Point)c.Tag).Y + 1));
+                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X - 1, ((Point)c.Tag).Y    ));
+                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X + 1, ((Point)c.Tag).Y    ));
                 }
                 catch (ArgumentOutOfRangeException) { }
             }
@@ -102,6 +107,10 @@ namespace CampoMinato
 
         private Casella CasellaMatrice(int x, int y)
         {
+            if (x < 0 || y < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             return (Casella)Controls[x + 8 * y];
         }
 
