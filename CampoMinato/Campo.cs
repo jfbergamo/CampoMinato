@@ -70,7 +70,7 @@ namespace CampoMinato
                 if (c.Bomba)
                 {
                     c.Attivo = false;
-                    //frmMain.Perso = true;
+                    ((frmMain)Tag).Running = false;
                 }
                 else
                 {
@@ -103,6 +103,14 @@ namespace CampoMinato
             }
 
             return;
+        }
+
+        public void DisattivaTutto()
+        {
+            foreach (Casella c in Controls)
+            {
+                c.Enabled = false;
+            }
         }
 
         private Casella CasellaMatrice(int x, int y)

@@ -60,7 +60,9 @@ namespace CampoMinato
 
         public bool Attivo {  get => btnCover.Visible; set => btnCover.Visible = value; }
         public string Testo { get => lblText.Text; set => lblText.Text = value; }
+        public new bool Enabled { get => btnCover.Enabled; set => btnCover.Enabled = value }
 
+        public bool Bomba { get => bomba; set => bomba = value; }
         public StatoCasella StatoCasella
         {
             get => statoCasella;
@@ -94,7 +96,6 @@ namespace CampoMinato
                 Display();
             } 
         }
-        public bool Bomba { get => bomba; set => bomba = value; }
 
         #endregion
 
