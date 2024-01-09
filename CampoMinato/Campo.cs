@@ -44,14 +44,12 @@ namespace CampoMinato
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
                     casella.Tag = new Point(x, y);
-                    bomba = false;//rng.Next(0, 7) == 0;
+                    bomba = rng.Next(0, 7) == 0;
                     casella.Bomba = bomba;
                     if (bomba) bombe++;
                     Controls.Add(casella);
                 }
             }
-            ((Casella)Controls[0]).Bomba = true;
-            bombe = 1;
         }
 
         public void CalcolaCampo()

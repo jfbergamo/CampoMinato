@@ -63,6 +63,7 @@ namespace CampoMinato
         {
             campo.Reset();
             lblTimer.Text = "000";
+            lblBombe.Text = campo.Bombe.ToString("000");
             perso = false;
             tmrSecs.Start();
             tmrCheck.Start();
