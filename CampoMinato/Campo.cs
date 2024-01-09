@@ -15,13 +15,19 @@ namespace CampoMinato
 {
     public partial class Campo : UserControl
     {
+
+        #region ATTRIBUTI
+
         Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
         
         private static Campo _campo;
-        private static int size = 8;
 
         private int bombe = 0;
         private int chiuse;
+        
+        #endregion
+
+        #region INIT
 
         public Campo()
         {
@@ -31,15 +37,13 @@ namespace CampoMinato
             CalcolaCampo();
         }
 
-        #region INIT
-
         public void CreaCampo()
         {
             bool bomba;
-            chiuse = SIZE * SIZE;
-            for (int y = 0; y < SIZE; y++)
+            chiuse = Config.Righe * Config.Colonne;
+            for (int y = 0; y < Config.Righe; y++)
             {
-                for (int x = 0; x < SIZE; x++)
+                for (int x = 0; x < Config.Colonne; x++)
                 {
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
@@ -137,11 +141,11 @@ namespace CampoMinato
 
         private Casella CasellaMatrice(int x, int y)
         {
-            if (x < 0 || y < 0 || x >= Campo.SIZE || y >= Campo.SIZE)
+            if (x < 0 || y < 0 || x >= Config.Colonne || y >= Config.Righe)
             {
                 throw new ArgumentOutOfRangeException();
             }
-            return (Casella)Controls[x + Campo.SIZE * y];
+            return (Casella)Controls[x + Config.Colonne * y];
         }
 
         private int ContaAdiacenti(Casella casella)
@@ -194,7 +198,6 @@ namespace CampoMinato
         #region PROPRIETA'
 
         public static Campo campo { get => _campo; }
-        public static int SIZE { get => size; }
 
         public int Bombe { get => bombe; }
 
