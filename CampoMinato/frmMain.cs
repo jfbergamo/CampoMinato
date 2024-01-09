@@ -23,19 +23,36 @@ namespace CampoMinato
         private void frmMain_Load(object sender, EventArgs e)
         {
             campo.Tag = this;
-            tmrTick.Start();
+            tmrSecs.Start();
+            lblBombe.Text = campo.Bombe.ToString("000");
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)
         {
-            if (running)
-            {
+            int secs = int.Parse(lblTimer.Text);
+            secs++;
+            lblTimer.Text = secs.ToString("000");
+        }
 
-            }
-            else
+        private void tmrCheck_Tick(object sender, EventArgs e)
+        {
+            if (!running)
             {
-                tmrTick.Stop();
+                tmrCheck.Stop();
+                tmrSecs.Stop();
+                campo.DisattivaTutto();
+                btnRestart.Visible = true;
             }
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            campo.Reset();
+            lblTimer.Text = "000";
+            running = true;
+            tmrSecs.Start();
+            tmrCheck.Start();
+            btnRestart.Visible = false;
         }
     }
 }

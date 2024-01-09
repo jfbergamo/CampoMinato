@@ -58,7 +58,7 @@ namespace CampoMinato
             this.btnCover.Size = new System.Drawing.Size(30, 30);
             this.btnCover.TabIndex = 1;
             this.btnCover.UseVisualStyleBackColor = false;
-            this.btnCover.MouseDown += new System.Windows.Forms.MouseEventHandler(Campo.campo.CoverPress);
+            this.btnCover.MouseDown += new System.Windows.Forms.MouseEventHandler(Campo.campo.CasellaClick);
             // 
             // Casella
             // 

@@ -20,6 +20,8 @@ namespace CampoMinato
         private static Campo _campo;
         public static Campo campo { get => _campo; }
 
+        private int bombe = 0;
+
         public Campo()
         {
             _campo = this;
@@ -32,6 +34,7 @@ namespace CampoMinato
 
         public void CreaCampo()
         {
+            bool bomba;
             for (int y = 0; y < 8; y++)
             {
                 for (int x = 0; x < 8; x++)
@@ -39,7 +42,9 @@ namespace CampoMinato
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
                     casella.Tag = new Point(x, y);
-                    casella.Bomba = rng.Next(0, 7) == 0;
+                    bomba = rng.Next(0, 7) == 0;
+                    casella.Bomba = bomba;
+                    if (bomba) bombe++;
                     Controls.Add(casella);
                 }
             }
@@ -57,7 +62,7 @@ namespace CampoMinato
 
         #region EVENTI
 
-        public void CoverPress(object sender, MouseEventArgs e)
+        public void CasellaClick(object sender, MouseEventArgs e)
         {
             Casella c = (Casella)((Button)sender).Tag;
 
@@ -67,23 +72,28 @@ namespace CampoMinato
             }
             if (e.Button == MouseButtons.Left)
             {
-                if (c.Bomba)
+                if (c.StatoCasella == StatoCasella.Empty)
                 {
-                    c.Attivo = false;
-                    ((frmMain)Tag).Running = false;
-                }
-                else
-                {
-                    DisattivaVicini(c);
+                    if (c.Bomba)
+                    {
+                        c.Attivo = false;
+                        ((frmMain)Tag).Running = false;
+                    }
+                    else
+                    {
+                        DisattivaVicini(c);
+                    }
                 }
             }
         }
 
         #endregion
 
+        #region METODI
+
         public void DisattivaVicini(Casella c)
         {
-            if (!c.Attivo)
+            if (!c.Attivo || c.StatoCasella != StatoCasella.Empty)
             {
                 return;
             }
@@ -92,14 +102,23 @@ namespace CampoMinato
 
             if (!c.Bomba && c.Adiacenti == 0)
             {
-                try
+                for (int x = -1; x < 2; x += 2)
                 {
-                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X,     ((Point)c.Tag).Y - 1));
-                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X,     ((Point)c.Tag).Y + 1));
-                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X - 1, ((Point)c.Tag).Y    ));
-                    DisattivaVicini(CasellaMatrice(((Point)c.Tag).X + 1, ((Point)c.Tag).Y    ));
+                    try
+                    {
+                        DisattivaVicini(CasellaMatrice(((Point)c.Tag).X + x, ((Point)c.Tag).Y));
+                    }
+                    catch (ArgumentOutOfRangeException) { }
                 }
-                catch (ArgumentOutOfRangeException) { }
+                for (int y = -1; y < 2; y += 2)
+                {
+                    try
+                    {
+                        DisattivaVicini(CasellaMatrice(((Point)c.Tag).X, ((Point)c.Tag).Y + y));
+                    }
+                    catch (ArgumentOutOfRangeException) { }
+                }
+                
             }
 
             return;
@@ -115,11 +134,11 @@ namespace CampoMinato
 
         private Casella CasellaMatrice(int x, int y)
         {
-            if (x < 0 || y < 0)
+            if (x < 0 || y < 0 || x >= Casella.SIZE || y >= Casella.SIZE)
             {
                 throw new ArgumentOutOfRangeException();
             }
-            return (Casella)Controls[x + 8 * y];
+            return (Casella)Controls[x + Casella.SIZE * y];
         }
 
         private int ContaAdiacenti(Casella casella)
@@ -142,5 +161,22 @@ namespace CampoMinato
             }
             return ads;
         }
+
+        public void Reset()
+        {
+            Controls.Clear();
+            bombe = 0;
+            CreaCampo();
+            CalcolaCampo();
+        }
+
+        #endregion
+
+        #region PROPRIETA'
+
+        public int Bombe { get => bombe; }
+
+        #endregion
+
     }
 }

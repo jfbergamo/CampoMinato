@@ -25,6 +25,7 @@ namespace CampoMinato
         private StatoCasella statoCasella;
         private bool bomba = false;
         private int adiancenti = 0;
+        private static int size = 8;
 
         #endregion
 
@@ -56,11 +57,11 @@ namespace CampoMinato
 
         #endregion
 
-        #region ATTRIBUTI
+        #region PROPRIETA'
 
         public bool Attivo {  get => btnCover.Visible; set => btnCover.Visible = value; }
         public string Testo { get => lblText.Text; set => lblText.Text = value; }
-        public new bool Enabled { get => btnCover.Enabled; set => btnCover.Enabled = value }
+        public new bool Enabled { get => btnCover.Enabled; set => btnCover.Enabled = value; }
 
         public bool Bomba { get => bomba; set => bomba = value; }
         public StatoCasella StatoCasella
@@ -96,6 +97,8 @@ namespace CampoMinato
                 Display();
             } 
         }
+
+        public static int SIZE { get => size; }
 
         #endregion
 
