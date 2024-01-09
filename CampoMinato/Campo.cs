@@ -18,9 +18,10 @@ namespace CampoMinato
         Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
         
         private static Campo _campo;
-        public static Campo campo { get => _campo; }
+        private static int size = 8;
 
         private int bombe = 0;
+        private int chiuse;
 
         public Campo()
         {
@@ -35,19 +36,22 @@ namespace CampoMinato
         public void CreaCampo()
         {
             bool bomba;
-            for (int y = 0; y < 8; y++)
+            chiuse = SIZE * SIZE;
+            for (int y = 0; y < SIZE; y++)
             {
-                for (int x = 0; x < 8; x++)
+                for (int x = 0; x < SIZE; x++)
                 {
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
                     casella.Tag = new Point(x, y);
-                    bomba = rng.Next(0, 7) == 0;
+                    bomba = false;//rng.Next(0, 7) == 0;
                     casella.Bomba = bomba;
                     if (bomba) bombe++;
                     Controls.Add(casella);
                 }
             }
+            ((Casella)Controls[0]).Bomba = true;
+            bombe = 1;
         }
 
         public void CalcolaCampo()
@@ -77,7 +81,7 @@ namespace CampoMinato
                     if (c.Bomba)
                     {
                         c.Attivo = false;
-                        ((frmMain)Tag).Running = false;
+                        ((frmMain)Tag).Perso = true;
                     }
                     else
                     {
@@ -99,6 +103,7 @@ namespace CampoMinato
             }
 
             c.Attivo = false;
+            chiuse--;
 
             if (!c.Bomba && c.Adiacenti == 0)
             {
@@ -134,11 +139,11 @@ namespace CampoMinato
 
         private Casella CasellaMatrice(int x, int y)
         {
-            if (x < 0 || y < 0 || x >= Casella.SIZE || y >= Casella.SIZE)
+            if (x < 0 || y < 0 || x >= Campo.SIZE || y >= Campo.SIZE)
             {
                 throw new ArgumentOutOfRangeException();
             }
-            return (Casella)Controls[x + Casella.SIZE * y];
+            return (Casella)Controls[x + Campo.SIZE * y];
         }
 
         private int ContaAdiacenti(Casella casella)
@@ -162,6 +167,22 @@ namespace CampoMinato
             return ads;
         }
 
+        public bool Vittoria()
+        {
+            if (chiuse == bombe)
+            {
+                foreach (Casella c in Controls)
+                {
+                    if (c.Attivo && c.StatoCasella != StatoCasella.Bandiera)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
         public void Reset()
         {
             Controls.Clear();
@@ -173,6 +194,9 @@ namespace CampoMinato
         #endregion
 
         #region PROPRIETA'
+
+        public static Campo campo { get => _campo; }
+        public static int SIZE { get => size; }
 
         public int Bombe { get => bombe; }
 

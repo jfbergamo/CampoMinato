@@ -25,7 +25,6 @@ namespace CampoMinato
         private StatoCasella statoCasella;
         private bool bomba = false;
         private int adiancenti = 0;
-        private static int size = 8;
 
         #endregion
 
@@ -97,8 +96,6 @@ namespace CampoMinato
                 Display();
             } 
         }
-
-        public static int SIZE { get => size; }
 
         #endregion
 

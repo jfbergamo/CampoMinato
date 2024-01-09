@@ -17,8 +17,8 @@ namespace CampoMinato
             InitializeComponent();
         }
 
-        private bool running = true;
-        public bool Running { get => running; set => running = value; }
+        private bool perso = false;
+        public bool Perso { get => perso; set => perso = value; }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -36,12 +36,26 @@ namespace CampoMinato
 
         private void tmrCheck_Tick(object sender, EventArgs e)
         {
-            if (!running)
+            // Controllo perdita
+            if (perso)
             {
                 tmrCheck.Stop();
                 tmrSecs.Stop();
                 campo.DisattivaTutto();
+                btnRestart.Text = "💀";
                 btnRestart.Visible = true;
+            }
+            else
+            // Controllo vittoria
+            {
+                if (campo.Vittoria())
+                {
+                    tmrCheck.Stop();
+                    tmrSecs.Stop();
+                    btnRestart.Text = "😀";
+                    btnRestart.Visible = true;
+                    campo.DisattivaTutto();
+                }
             }
         }
 
@@ -49,10 +63,11 @@ namespace CampoMinato
         {
             campo.Reset();
             lblTimer.Text = "000";
-            running = true;
+            perso = false;
             tmrSecs.Start();
             tmrCheck.Start();
             btnRestart.Visible = false;
+            btnRestart.Text = "😻";
         }
     }
 }

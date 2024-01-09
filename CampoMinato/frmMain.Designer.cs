@@ -89,7 +89,7 @@
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(76, 76);
             this.btnRestart.TabIndex = 3;
-            this.btnRestart.Text = "💀";
+            this.btnRestart.Text = "😻";
             this.btnRestart.UseVisualStyleBackColor = false;
             this.btnRestart.Visible = false;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
