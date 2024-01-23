@@ -30,7 +30,6 @@ namespace CampoMinato
 
         public Campo()
         {
-            bombe = Config.Riempimento / 100 * caselle;
             _campo = this;
             InitializeComponent();
             CreaCampo();
@@ -39,6 +38,7 @@ namespace CampoMinato
 
         public void CreaCampo()
         {
+            bombe = Config.Riempimento / 100 * caselle;
             bool bomba;
             chiuse = caselle;
             for (int y = 0; y < Config.Righe; y++)
