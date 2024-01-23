@@ -35,7 +35,12 @@
             this.lblBombe = new System.Windows.Forms.Label();
             this.tmrCheck = new System.Windows.Forms.Timer(this.components);
             this.btnRestart = new System.Windows.Forms.Button();
+            this.menu = new System.Windows.Forms.MenuStrip();
+            this.menuOpzioni = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEsci = new System.Windows.Forms.ToolStripMenuItem();
             this.campo = new CampoMinato.Campo();
+            this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tmrSecs
@@ -87,6 +92,40 @@
             this.btnRestart.Visible = false;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
+            // menu
+            // 
+            this.menu.BackColor = System.Drawing.Color.Transparent;
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuOpzioni});
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(344, 24);
+            this.menu.TabIndex = 4;
+            this.menu.Text = "menuStrip1";
+            // 
+            // menuOpzioni
+            // 
+            this.menuOpzioni.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuConfig,
+            this.menuEsci});
+            this.menuOpzioni.Name = "menuOpzioni";
+            this.menuOpzioni.Size = new System.Drawing.Size(60, 20);
+            this.menuOpzioni.Text = "Opzioni";
+            // 
+            // menuConfig
+            // 
+            this.menuConfig.Name = "menuConfig";
+            this.menuConfig.Size = new System.Drawing.Size(180, 22);
+            this.menuConfig.Text = "Impostazioni";
+            this.menuConfig.Click += new System.EventHandler(this.menuConfig_Click);
+            // 
+            // menuEsci
+            // 
+            this.menuEsci.Name = "menuEsci";
+            this.menuEsci.Size = new System.Drawing.Size(180, 22);
+            this.menuEsci.Text = "Esci";
+            this.menuEsci.Click += new System.EventHandler(this.menuEsci_Click);
+            // 
             // campo
             // 
             this.campo.BackColor = System.Drawing.Color.Transparent;
@@ -107,13 +146,18 @@
             this.Controls.Add(this.lblBombe);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.campo);
+            this.Controls.Add(this.menu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menu;
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "Parto Fiorito";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -125,5 +169,9 @@
         private System.Windows.Forms.Label lblBombe;
         private System.Windows.Forms.Timer tmrCheck;
         private System.Windows.Forms.Button btnRestart;
+        private System.Windows.Forms.MenuStrip menu;
+        private System.Windows.Forms.ToolStripMenuItem menuOpzioni;
+        private System.Windows.Forms.ToolStripMenuItem menuConfig;
+        private System.Windows.Forms.ToolStripMenuItem menuEsci;
     }
 }

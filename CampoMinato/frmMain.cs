@@ -14,6 +14,7 @@ namespace CampoMinato
     {
         public frmMain()
         {
+            Config.LoadConfig();
             InitializeComponent();
         }
 
@@ -25,6 +26,7 @@ namespace CampoMinato
             campo.Tag = this;
             lblBombe.Text = campo.Bombe.ToString("000");
             DimensionaFinestra();
+            Config.DumpConfig();
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)
@@ -81,6 +83,23 @@ namespace CampoMinato
             lblBombe.Location = new Point(campo.Location.X + campo.Size.Width - lblBombe.Size.Width, lblBombe.Location.Y);
             // 68, 86
             this.Size = new Size(campo.Location.X + campo.Size.Width + 68, campo.Location.Y + campo.Size.Height + 86);
+        }
+
+        private void menuEsci_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Sei sicuro di voler uscire?",
+                                "Uscire?",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question
+                ) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void menuConfig_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("In Arrivo...");
         }
     }
 }
