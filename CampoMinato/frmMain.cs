@@ -23,9 +23,8 @@ namespace CampoMinato
         private void frmMain_Load(object sender, EventArgs e)
         {
             campo.Tag = this;
-            tmrSecs.Stop();
-
-            Reload();
+            lblBombe.Text = campo.Bombe.ToString("000");
+            DimensionaFinestra();
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)
@@ -72,18 +71,18 @@ namespace CampoMinato
             btnRestart.Text = "😻";
         }
 
-        private void Reload()
+        private void DimensionaFinestra()
         {
-            btnRestart_Click(null, null);
-
             campo.Size = new Size(new Casella().Size.Width * Config.Colonne, new Casella().Size.Height * Config.Righe);
             btnRestart.Location = new Point(campo.Location.X + campo.Size.Width / 2 - btnRestart.Size.Width / 2, btnRestart.Location.Y);
             lblBombe.Location = new Point(campo.Location.X + campo.Size.Width - lblBombe.Size.Width, lblBombe.Location.Y);
-
             // 68, 86
             this.Size = new Size(campo.Location.X + campo.Size.Width + 68, campo.Location.Y + campo.Size.Height + 86);
+        }
 
-            lblBombe.Text = campo.Bombe.ToString("000");
+        private void Reload()
+        {
+            
         }
     }
 }

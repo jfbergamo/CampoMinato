@@ -10,7 +10,7 @@ namespace CampoMinato
     {
         private static int righe = 8;
         private static int colonne = 8;
-        private static int riempimento = 40;
+        private static int riempimento = 12;
 
         public static int Righe { get => righe; set => righe = value; }
         public static int Colonne { get => colonne; set => colonne = value; }

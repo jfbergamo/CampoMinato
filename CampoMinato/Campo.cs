@@ -20,7 +20,7 @@ namespace CampoMinato
 
         private static Campo _campo;
 
-        private int caselle = Config.Righe * Config.Colonne;
+        private int caselle;
         private int bombe;
         private int chiuse;
         
@@ -38,8 +38,8 @@ namespace CampoMinato
 
         public void CreaCampo()
         {
-            bombe = Config.Riempimento / 100 * caselle;
-            bool bomba;
+            caselle = Config.Righe * Config.Colonne;
+            bombe = (int)((double)Config.Riempimento / 100d * (double)caselle);
             chiuse = caselle;
             for (int y = 0; y < Config.Righe; y++)
             {
@@ -57,7 +57,7 @@ namespace CampoMinato
         {
             List<Casella> caselle = Config.ListFromControlCollection(Controls);
             Config.ListShuffle(caselle);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < bombe; i++)
             {
                 caselle[i].Bomba = true;
             }
