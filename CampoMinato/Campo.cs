@@ -143,6 +143,17 @@ namespace CampoMinato
             }
         }
 
+        public void MostraBombe()
+        {
+            foreach (Casella c in Controls)
+            {
+                if (c.Bomba)
+                {
+                    c.Attivo = false;
+                }
+            }
+        }
+
         private Casella CasellaMatrice(int x, int y)
         {
             if (x < 0 || y < 0 || x >= Config.Colonne || y >= Config.Righe)

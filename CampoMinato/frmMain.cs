@@ -41,6 +41,7 @@ namespace CampoMinato
             {
                 tmrCheck.Stop();
                 tmrSecs.Stop();
+                campo.MostraBombe();
                 campo.DisattivaTutto();
                 btnRestart.Text = "💀";
                 btnRestart.Visible = true;
@@ -69,6 +70,8 @@ namespace CampoMinato
             tmrCheck.Start();
             btnRestart.Visible = false;
             btnRestart.Text = "😻";
+
+            DimensionaFinestra();
         }
 
         private void DimensionaFinestra()
@@ -78,11 +81,6 @@ namespace CampoMinato
             lblBombe.Location = new Point(campo.Location.X + campo.Size.Width - lblBombe.Size.Width, lblBombe.Location.Y);
             // 68, 86
             this.Size = new Size(campo.Location.X + campo.Size.Width + 68, campo.Location.Y + campo.Size.Height + 86);
-        }
-
-        private void Reload()
-        {
-            
         }
     }
 }
