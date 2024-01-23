@@ -99,7 +99,8 @@ namespace CampoMinato
 
         private void menuConfig_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("In Arrivo...");
+            frmMenu config = new frmMenu();
+            config.ShowDialog();
         }
     }
 }
