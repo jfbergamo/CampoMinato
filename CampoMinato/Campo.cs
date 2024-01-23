@@ -18,11 +18,10 @@ namespace CampoMinato
 
         #region ATTRIBUTI
 
-        Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
-        
         private static Campo _campo;
 
-        private int bombe = 0;
+        private int caselle = Config.Righe * Config.Colonne;
+        private int bombe;
         private int chiuse;
         
         #endregion
@@ -31,6 +30,7 @@ namespace CampoMinato
 
         public Campo()
         {
+            bombe = Config.Riempimento / 100 * caselle;
             _campo = this;
             InitializeComponent();
             CreaCampo();
@@ -40,7 +40,7 @@ namespace CampoMinato
         public void CreaCampo()
         {
             bool bomba;
-            chiuse = Config.Righe * Config.Colonne;
+            chiuse = caselle;
             for (int y = 0; y < Config.Righe; y++)
             {
                 for (int x = 0; x < Config.Colonne; x++)
@@ -48,9 +48,6 @@ namespace CampoMinato
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
                     casella.Tag = new Point(x, y);
-                    bomba = rng.Next(0, 7) == 0;
-                    casella.Bomba = bomba;
-                    if (bomba) bombe++;
                     Controls.Add(casella);
                 }
             }
@@ -58,6 +55,13 @@ namespace CampoMinato
 
         public void CalcolaCampo()
         {
+            List<Casella> caselle = Config.ListFromControlCollection(Controls);
+            Config.ListShuffle(caselle);
+            for (int i = 0; i < 10; i++)
+            {
+                caselle[i].Bomba = true;
+            }
+
             foreach (Casella casella in Controls)
             {
                 casella.Adiacenti = (!casella.Bomba) ? ContaAdiacenti(casella) : 0;
@@ -189,6 +193,7 @@ namespace CampoMinato
         {
             Controls.Clear();
             bombe = 0;
+            caselle = Config.Righe * Config.Colonne;
             CreaCampo();
             CalcolaCampo();
         }
