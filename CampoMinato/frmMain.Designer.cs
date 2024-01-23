@@ -32,9 +32,9 @@
             this.tmrSecs = new System.Windows.Forms.Timer(this.components);
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblBombe = new System.Windows.Forms.Label();
-            this.campo = new CampoMinato.Campo();
             this.tmrCheck = new System.Windows.Forms.Timer(this.components);
             this.btnRestart = new System.Windows.Forms.Button();
+            this.campo = new CampoMinato.Campo();
             this.SuspendLayout();
             // 
             // tmrSecs
@@ -66,14 +66,6 @@
             this.lblBombe.Text = "000";
             this.lblBombe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // campo
-            // 
-            this.campo.BackColor = System.Drawing.Color.Transparent;
-            this.campo.Location = new System.Drawing.Point(52, 154);
-            this.campo.Name = "campo";
-            this.campo.Size = new System.Drawing.Size(240, 240);
-            this.campo.TabIndex = 0;
-            // 
             // tmrCheck
             // 
             this.tmrCheck.Enabled = true;
@@ -93,6 +85,14 @@
             this.btnRestart.UseVisualStyleBackColor = false;
             this.btnRestart.Visible = false;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
+            // campo
+            // 
+            this.campo.BackColor = System.Drawing.Color.Transparent;
+            this.campo.Location = new System.Drawing.Point(52, 154);
+            this.campo.Name = "campo";
+            this.campo.Size = new System.Drawing.Size(240, 240);
+            this.campo.TabIndex = 0;
             // 
             // frmMain
             // 
