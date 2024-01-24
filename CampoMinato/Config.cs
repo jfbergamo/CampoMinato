@@ -7,6 +7,9 @@ using System.Xml;
 
 namespace CampoMinato
 {
+    // Classe statica che contiene la configurazione del campo
+    // e il caricamento della configurazione in file XML
+    // + alcuni metodi statici utili
     internal static class Config
     {
         #region PROPRIETA'
@@ -15,6 +18,8 @@ namespace CampoMinato
         private static int colonne = 8;
         private static int riempimento = 12;
 
+        // Percorso del file di configurazione XML, cambiare a proprio piacimento
+        // attualmente "bin\debug\config.yml"
         private static string configFilePath = "config.yml";
 
         public static int Righe { get => righe; set => righe = value; }
@@ -26,7 +31,7 @@ namespace CampoMinato
         public static int MinColonne { get => 7; }
 
         // Limiti massimi calcolati perché stia nello schermo
-        // ATTENZIONE: valori così alti probabilmente friggono i pc più scarsi
+        // ATTENZIONE: valori così alti potrebbero mettere in difficoltà hardware deboli
         public static int MaxRighe { get => 25; }
         public static int MaxColonne { get => 50; }
 
@@ -34,6 +39,8 @@ namespace CampoMinato
 
         #region DATA
 
+        // Controlla che non ci siano ambiguità nei valori del config
+        // e in caso ce ne siano, ripristina i valori
         public static void CheckConfig()
         {
             if (righe < MinRighe || righe > MaxRighe)
@@ -56,6 +63,7 @@ namespace CampoMinato
 
         #region LOADING
 
+        // Esporta la configurazione in un file XML
         public static void DumpConfig()
         {
             try
@@ -81,9 +89,11 @@ namespace CampoMinato
                 writer.WriteEndDocument();
                 writer.Close();
             }
+            // Controllo per eccezioni legate alla mancanza del file di configurazione
             catch { }
         }
 
+        // Importa la configurazione da file XML
         public static void LoadConfig()
         {
             XmlTextReader reader = new XmlTextReader(configFilePath);
@@ -112,16 +122,19 @@ namespace CampoMinato
                     }
                 }
             }
+            // Controllo per eccezioni legate alla mancanza del file di configurazione
             catch { }
-            
-            reader.Close();
-            CheckConfig();
+
+            reader.Close(); // Chiudere il reader anche in caso di eccezione
+            CheckConfig(); // Esegue controllo sui valori appena importati
         }
 
         #endregion
 
         #region UTILITIES
 
+        // Fa uno shuffle di una lista, utilizzando l'algoritmo Fisher-Yates
+        // Anch'io pensavo esistesse già lo shuffle per la lista, ma non me lo trovava
         public static void ListShuffle<T>(List<T> list)
         {
             Random rng = new Random((int)DateTimeOffset.Now.ToUnixTimeSeconds());
@@ -134,6 +147,7 @@ namespace CampoMinato
             }
         }
         
+        // Ritorna una lista con lo stesso contenuto di una ControlCollection passata per parametro
         public static List<Casella> ListFromControlCollection(System.Windows.Forms.Control.ControlCollection controls)
         {
             List<Casella> list = new List<Casella>();

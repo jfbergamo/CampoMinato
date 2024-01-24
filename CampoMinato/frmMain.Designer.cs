@@ -46,7 +46,7 @@
             // tmrSecs
             // 
             this.tmrSecs.Interval = 1000;
-            this.tmrSecs.Tick += new System.EventHandler(this.tmrTick_Tick);
+            this.tmrSecs.Tick += new System.EventHandler(this.tmrSecs_Tick);
             // 
             // lblTimer
             // 

@@ -13,12 +13,15 @@ using System.Xml;
 
 namespace CampoMinato
 {
+    // UserControl che funge da classe di gestione
+    // Contiene tutte le caselle e i metodi per manipolarle
     public partial class Campo : UserControl
     {
 
         #region ATTRIBUTI
 
-        private static Campo _campo;
+        private static Campo c; // Attributo statico per autoriferirsi,
+                                // serve alla singola casella per accedere al campo
 
         private int caselle;
         private int bombe;
@@ -30,31 +33,37 @@ namespace CampoMinato
 
         public Campo()
         {
-            _campo = this;
+            c = this; // Autoriferimento dell'attributo c
             InitializeComponent();
             CreaCampo();
             CalcolaCampo();
         }
 
+        // Calcola alcuni parametri del campo, crea le celle le inserisce nel campo
         public void CreaCampo()
         {
+            // Calcola il numero totale di caselle per la dimensione data dal config
             caselle = Config.Righe * Config.Colonne;
             bombe = (int)((double)Config.Riempimento / 100d * (double)caselle);
-            chiuse = caselle;
+            chiuse = caselle; // Usato per controllare la vittoria
+
+            // Crea e inserisce le caselle nel campo
             for (int y = 0; y < Config.Righe; y++)
             {
                 for (int x = 0; x < Config.Colonne; x++)
                 {
                     Casella casella = new Casella();
                     casella.Location = new Point(x * casella.Width, y * casella.Height);
-                    casella.Tag = new Point(x, y);
+                    casella.Tag = new Point(x, y); // Le coordinate della casella vengono inserite nel suo tag con oggetto Point
                     Controls.Add(casella);
                 }
             }
         }
 
+        // Inserisce le bombe e conta le bombe adiacenti
         public void CalcolaCampo()
         {
+            // Estrazione delle caselle che avranno la bomba
             List<Casella> caselle = Config.ListFromControlCollection(Controls);
             Config.ListShuffle(caselle);
             for (int i = 0; i < bombe; i++)
@@ -62,6 +71,7 @@ namespace CampoMinato
                 caselle[i].Bomba = true;
             }
 
+            // Calcolo delle bombe adiacenti per le caselle vuote
             foreach (Casella casella in Controls)
             {
                 casella.Adiacenti = (!casella.Bomba) ? ContaAdiacenti(casella) : 0;
@@ -72,10 +82,13 @@ namespace CampoMinato
 
         #region EVENTI
 
+        // Gestisce il click di una casella
         public void CasellaClick(object sender, MouseEventArgs e)
         {
+            // Ottiene la casella prendendola dal tag del bottone all'interno della casella stessa
             Casella c = (Casella)((Button)sender).Tag;
 
+            // Gestisce i vari click
             if (e.Button == MouseButtons.Right)
             {
                 c.CambiaStato();
@@ -87,7 +100,7 @@ namespace CampoMinato
                     if (c.Bomba)
                     {
                         c.Attivo = false;
-                        ((frmMain)Tag).Perso = true;
+                        frmMain.Perso = true;
                     }
                     else
                     {
@@ -101,18 +114,23 @@ namespace CampoMinato
 
         #region METODI
 
+        // Disattiva tutte le caselle vuote vicine alla casella appena disattivata
+        // Metodo ricorsivo
         public void DisattivaVicini(Casella c)
         {
+            // Condizione di uscita per metodo ricorsivo
             if (!c.Attivo || c.StatoCasella != StatoCasella.Empty)
             {
                 return;
             }
 
+            // Disattiva la singola cella
             c.Attivo = false;
-            chiuse--;
+            chiuse--; // Serve per calcolare la vincita
 
             if (!c.Bomba && c.Adiacenti == 0)
             {
+                // Logica per disattivare le caselle circostanti
                 for (int x = -1; x < 2; x += 2)
                 {
                     try
@@ -135,6 +153,7 @@ namespace CampoMinato
             return;
         }
 
+        // Disattiva tutte le celle
         public void DisattivaTutto()
         {
             foreach (Casella c in Controls)
@@ -143,6 +162,8 @@ namespace CampoMinato
             }
         }
 
+        // Mostra tutte le caselle che avevano la bomba
+        // Serve per quando si perde
         public void MostraBombe()
         {
             foreach (Casella c in Controls)
@@ -154,6 +175,7 @@ namespace CampoMinato
             }
         }
 
+        // Ottiene una casella dal campo date le sue coordinate
         private Casella CasellaMatrice(int x, int y)
         {
             if (x < 0 || y < 0 || x >= Config.Colonne || y >= Config.Righe)
@@ -163,6 +185,7 @@ namespace CampoMinato
             return (Casella)Controls[x + Config.Colonne * y];
         }
 
+        // Conta tutte le bombe adiacenti alla casella data
         private int ContaAdiacenti(Casella casella)
         {
             int ads = 0;
@@ -184,22 +207,26 @@ namespace CampoMinato
             return ads;
         }
 
+        // Logica di controllo per la vittoria
         public bool Vittoria()
         {
-            if (chiuse == bombe)
+            if (chiuse == bombe) // Se le caselle rimaste chiuse sono uguali al numero delle bombe...
             {
                 foreach (Casella c in Controls)
                 {
                     if (c.Attivo && c.StatoCasella != StatoCasella.Bandiera)
+                    // ... tutte le caselle rimaste non sono state aperte
+                    // e hanno la bandiera...
                     {
                         return false;
                     }
                 }
-                return true;
+                return true; // ...allora hai vinto.
             }
             return false;
         }
 
+        // Svuota il campo e lo rigenera
         public void Reset()
         {
             SuspendLayout();
@@ -215,7 +242,8 @@ namespace CampoMinato
 
         #region PROPRIETA'
 
-        public static Campo campo { get => _campo; }
+        // Proprietà per attributo statico di autoriferimento, funzionamento già spiegato
+        public static Campo campo { get => c; }
 
         public int Bombe { get => bombe; }
 

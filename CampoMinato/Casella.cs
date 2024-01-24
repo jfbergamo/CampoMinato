@@ -17,6 +17,7 @@ namespace CampoMinato
         Dubbio,
     }
 
+    // UserControl che rappresenta la casella
     public partial class Casella : UserControl
     {
 
@@ -28,20 +29,27 @@ namespace CampoMinato
 
         #endregion
 
+        #region COSTRUTTORE
+
+        // Costruttore, imposta alcune cose di default
         public Casella()
         {
             InitializeComponent();
             statoCasella = StatoCasella.Empty;
-            btnCover.Tag = this;
+            btnCover.Tag = this; // Autoriferimento della casella all'interno del buttone della casella stessa
         }
+
+        #endregion
 
         #region METODI
 
+        // Cicla attraverso gli stati di una casella
         public void CambiaStato()
         {
             StatoCasella = (StatoCasella)(((int)statoCasella + 1) % Enum.GetNames(typeof(StatoCasella)).Length);
         }
 
+        // Imposta cosa visualizzare quando la casella verrà aperta
         private void Display()
         {
             if (Bomba)
@@ -58,11 +66,17 @@ namespace CampoMinato
 
         #region PROPRIETA'
 
+        // Associa lo stato attivo della casella alla visibilità del bottone
         public bool Attivo {  get => btnCover.Visible; set => btnCover.Visible = value; }
+        
         public string Testo { get => lblText.Text; set => lblText.Text = value; }
+        
+        // Sovrascrive lo stato di abilitazione della casella con quello del suo bottone
         public new bool Enabled { get => btnCover.Enabled; set => btnCover.Enabled = value; }
 
         public bool Bomba { get => bomba; set => bomba = value; }
+        
+        // Proprietà che implementa la visualizzazione della casella dal cambiamento del suo stato
         public StatoCasella StatoCasella
         {
             get => statoCasella;
@@ -83,6 +97,7 @@ namespace CampoMinato
                 }
             }
         }
+
         public int Adiacenti
         {
             get => adiancenti;
