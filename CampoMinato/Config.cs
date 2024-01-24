@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace CampoMinato
 {
-    internal class Config
+    internal static class Config
     {
         #region PROPRIETA'
 
@@ -20,6 +20,37 @@ namespace CampoMinato
         public static int Righe { get => righe; set => righe = value; }
         public static int Colonne { get => colonne; set => colonne = value; }
         public static int Riempimento { get => riempimento; set => riempimento = value; }
+
+        // Limiti minimi calcolati perché non si rompa la UI
+        public static int MinRighe { get => 4; }
+        public static int MinColonne { get => 7; }
+
+        // Limiti massimi calcolati perché stia nello schermo
+        // ATTENZIONE: valori così alti probabilmente friggono i pc più scarsi
+        public static int MaxRighe { get => 25; }
+        public static int MaxColonne { get => 50; }
+
+        #endregion
+
+        #region DATA
+
+        public static void CheckConfig()
+        {
+            if (righe < MinRighe || righe > MaxRighe)
+            {
+                righe = MinRighe;
+            }
+
+            if (colonne < MinColonne || colonne > MaxColonne)
+            {
+                colonne = MinColonne;
+            }
+
+            if (riempimento < 0 || riempimento > 100)
+            {
+                riempimento = 12;
+            }
+        }
 
         #endregion
 
@@ -84,6 +115,7 @@ namespace CampoMinato
             catch { }
             
             reader.Close();
+            CheckConfig();
         }
 
         #endregion

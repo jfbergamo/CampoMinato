@@ -202,11 +202,13 @@ namespace CampoMinato
 
         public void Reset()
         {
+            SuspendLayout();
             Controls.Clear();
             bombe = 0;
             caselle = Config.Righe * Config.Colonne;
             CreaCampo();
             CalcolaCampo();
+            ResumeLayout();
         }
 
         #endregion

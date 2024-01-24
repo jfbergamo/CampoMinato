@@ -115,14 +115,14 @@
             // menuConfig
             // 
             this.menuConfig.Name = "menuConfig";
-            this.menuConfig.Size = new System.Drawing.Size(180, 22);
+            this.menuConfig.Size = new System.Drawing.Size(142, 22);
             this.menuConfig.Text = "Impostazioni";
             this.menuConfig.Click += new System.EventHandler(this.menuConfig_Click);
             // 
             // menuEsci
             // 
             this.menuEsci.Name = "menuEsci";
-            this.menuEsci.Size = new System.Drawing.Size(180, 22);
+            this.menuEsci.Size = new System.Drawing.Size(142, 22);
             this.menuEsci.Text = "Esci";
             this.menuEsci.Click += new System.EventHandler(this.menuEsci_Click);
             // 
@@ -152,7 +152,7 @@
             this.MainMenuStrip = this.menu;
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "Parto Fiorito";
+            this.Text = "Parto Minato";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();

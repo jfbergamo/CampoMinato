@@ -100,8 +100,19 @@ namespace CampoMinato
 
         private void menuConfig_Click(object sender, EventArgs e)
         {
+            tmrCheck.Stop();
+            tmrSecs.Stop();
+
             frmMenu config = new frmMenu();
-            config.ShowDialog();
+            if (config.ShowDialog() == DialogResult.OK)
+            {
+                btnRestart_Click(null, null);
+            }
+            else
+            {
+                tmrCheck.Start();
+                tmrSecs.Start();
+            }
         }
     }
 }
