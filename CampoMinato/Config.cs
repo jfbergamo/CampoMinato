@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
+// Bergamasco Jacopo, 4AIA, A.S. 2023-2024
+
 namespace CampoMinato
 {
     // Classe statica che contiene la configurazione del campo

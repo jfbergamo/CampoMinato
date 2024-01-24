@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+// Bergamasco Jacopo, 4AIA, A.S. 2023-2024
 
 namespace CampoMinato
 {
@@ -67,15 +62,15 @@ namespace CampoMinato
         #region PROPRIETA'
 
         // Associa lo stato attivo della casella alla visibilità del bottone
-        public bool Attivo {  get => btnCover.Visible; set => btnCover.Visible = value; }
-        
+        public bool Attivo { get => btnCover.Visible; set => btnCover.Visible = value; }
+
         public string Testo { get => lblText.Text; set => lblText.Text = value; }
-        
+
         // Sovrascrive lo stato di abilitazione della casella con quello del suo bottone
         public new bool Enabled { get => btnCover.Enabled; set => btnCover.Enabled = value; }
 
         public bool Bomba { get => bomba; set => bomba = value; }
-        
+
         // Proprietà che implementa la visualizzazione della casella dal cambiamento del suo stato
         public StatoCasella StatoCasella
         {
@@ -109,7 +104,7 @@ namespace CampoMinato
                     adiancenti = (ads > 8) ? 0 : ads;
                 }
                 Display();
-            } 
+            }
         }
 
         #endregion

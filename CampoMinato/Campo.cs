@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+// Bergamasco Jacopo, 4AIA, A.S. 2023-2024
+
 namespace CampoMinato
 {
     // UserControl che funge da classe di gestione

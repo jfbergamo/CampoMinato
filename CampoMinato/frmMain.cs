@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Bergamasco Jacopo, 4AIA, A.S. 2023-2024
+
 namespace CampoMinato
 {
     // Finestra principale.
