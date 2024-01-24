@@ -27,6 +27,7 @@ namespace CampoMinato
             lblBombe.Text = campo.Bombe.ToString("000");
             DimensionaFinestra();
             Config.DumpConfig();
+            tmrSecs.Start();
         }
 
         private void tmrTick_Tick(object sender, EventArgs e)
