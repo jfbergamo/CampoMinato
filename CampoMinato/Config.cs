@@ -22,7 +22,7 @@ namespace CampoMinato
 
         // Percorso del file di configurazione XML, cambiare a proprio piacimento
         // attualmente "bin\debug\config.yml"
-        private static string configFilePath = "config.yml";
+        private static string configFilePath = "config.xml";
 
         public static int Righe { get => righe; set => righe = value; }
         public static int Colonne { get => colonne; set => colonne = value; }

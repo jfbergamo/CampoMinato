@@ -117,7 +117,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmMenu";
-            this.Text = "frmMenu";
+            this.Text = "Menu";
             this.Load += new System.EventHandler(this.frmMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numRighe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColonne)).EndInit();
