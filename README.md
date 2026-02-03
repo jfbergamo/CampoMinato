@@ -6,7 +6,7 @@ Ovvero [Campo Minato/Prato Fiorito](https://it.wikipedia.org/wiki/Campo_minato_(
 
 ### Interfaccia principale
 
-![Campo](https://i.imgur.com/K9Rxth8.png)
+![Campo](./assets/campo.png)
 
 > All'avvio del programma il gioco è già avviato, con tutte le caselle chiuse nella griglia.
 > 
@@ -16,7 +16,7 @@ Ovvero [Campo Minato/Prato Fiorito](https://it.wikipedia.org/wiki/Campo_minato_(
 > L’interfaccia viene scalata automaticamente in base al numero di righe e colonne.
 > 
 
-![Caselle](https://i.imgur.com/sbROxUF.png)
+![Caselle](./assets/caselle.png)
 
 > Cliccando con il tasto sinistro su una casella, essa verrà scoperta e rivelerà una casella vuota, una bomba, o un numero che indica le bombe adiacenti a quella casella.
 > 
@@ -24,7 +24,7 @@ Ovvero [Campo Minato/Prato Fiorito](https://it.wikipedia.org/wiki/Campo_minato_(
 > Cliccando con il tasto destro si posizionerà una bandiera, che indica la presenza di una bomba nella casella corrente, e cliccando di nuovo si posizionerà un '?' che indica la probabilità della presenza di una bomba.
 > 
 
-![Sconfitta](https://i.imgur.com/Ehg90Hp.png)
+![Sconfitta](./assets/sconfitta.png)
 
 > Se apri una casella contenente una bomba hai perso.
 > 
@@ -32,7 +32,7 @@ Ovvero [Campo Minato/Prato Fiorito](https://it.wikipedia.org/wiki/Campo_minato_(
 > Il gioco mostrerà tutte le bombe presenti nel campo e comparirà un pulsate per giocare di nuovo.
 > 
 
-![Vittoria](https://i.imgur.com/1KS9Sit.png)
+![Vittoria](./assets/vittoria.png)
 
 > Se piazzi una bandierina su tutte le caselle contenenti una bomba hai vinto.
 > 
@@ -42,7 +42,7 @@ Ovvero [Campo Minato/Prato Fiorito](https://it.wikipedia.org/wiki/Campo_minato_(
 
 ### Menù di configurazione
 
-![Menu](https://i.imgur.com/XTWK5Hf.png)
+![Menu](./assets/menu.png)
 
 > Il menù delle impostazioni è molto basilare e presenta le opzioni per regolare il numero di righe e di colonne del campo e la percentuale di caselle nel campo che contengono una bomba.
 > 
